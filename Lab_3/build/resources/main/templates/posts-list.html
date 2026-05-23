@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Блог - Все посты</title>
+</head>
+<body>
+<h1>Список всех публикаций</h1>
+<a th:href="@{/posts/new}">+ Создать новый пост</a>
+<hr>
+
+<div th:each="post : ${posts}" style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">
+    <h3 th:text="${post.title}">Заголовок</h3>
+    <p th:text="${post.content}">Текст поста...</p>
+
+    <a th:href="@{/posts/{id}(id=${post.id})}">Читать далее и комментарии</a>
+
+    <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post" style="display:inline; margin-left: 20px;">
+        <button type="submit" onclick="return confirm('Удалить этот пост?')">Удалить</button>
+    </form>
+</div>
+</body>
+</html>

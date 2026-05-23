@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${post.title}">Просмотр поста</title>
+</head>
+<body>
+<a th:href="@{/posts}">Назад к списку постов</a>
+<hr>
+
+<h1 th:text="${post.title}">Заголовок</h1>
+<p th:text="${post.content}">Текст публикации</p>
+
+<hr>
+<h3>Комментарии:</h3>
+<ul>
+  <li th:each="comment : ${post.comments}" th:text="${comment}">Комментарий</li>
+  <li th:if="${#lists.isEmpty(post.comments)}">Комментариев пока нет. Будьте первым!</li>
+</ul>
+
+<hr>
+<h4>Оставить комментарий:</h4>
+<form th:action="@{/posts/{postId}/comments(postId=${post.id})}" th:object="${commentDto}" method="post">
+  <input type="text" th:field="*{text}" placeholder="Напишите что-нибудь..." style="width: 300px;" required/>
+  <button type="submit">Отправить</button>
+</form>
+</body>
+</html>
